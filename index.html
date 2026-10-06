@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="calculator-container">
+        <div class="glow-border"></div>
+        
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon">🧮</span>
+                <span class="logo-text">CALCULATOR</span>
+            </div>
+            <div class="mode-indicator" id="modeIndicator">BASIC</div>
+        </div>
+
+        <div class="display-container">
+            <div class="expression-display" id="expressionDisplay"></div>
+            <div class="result-display" id="resultDisplay">0</div>
+        </div>
+
+        <div class="mode-tabs" id="modeTabs">
+            <button class="mode-tab active" data-mode="basic" title="Basic arithmetic">Basic</button>
+            <button class="mode-tab" data-mode="scientific" title="Scientific functions">Scientific</button>
+            <button class="mode-tab" data-mode="calculus" title="Calculus operations">Calculus</button>
+        </div>
+
+        <div class="keypad-container">
+            <!-- Basic Mode -->
+            <div class="keypad active" id="basicKeypad">
+                <div class="key-row">
+                    <button class="key func" data-action="clear" title="Clear all (Escape)">AC</button>
+                    <button class="key func" data-action="delete" title="Backspace (Backspace)">⌫</button>
+                    <button class="key func" data-action="percent" title="Percent (%)">%</button>
+                    <button class="key operator" data-action="divide" title="Divide (/)">÷</button>
+                </div>
+                <div class="key-row">
+                    <button class="key num" data-value="7" title="7">7</button>
+                    <button class="key num" data-value="8" title="8">8</button>
+                    <button class="key num" data-value="9" title="9">9</button>
+                    <button class="key operator" data-action="multiply" title="Multiply (*)">×</button>
+                </div>
+                <div class="key-row">
+                    <button class="key num" data-value="4" title="4">4</button>
+                    <button class="key num" data-value="5" title="5">5</button>
+                    <button class="key num" data-value="6" title="6">6</button>
+                    <button class="key operator" data-action="subtract" title="Subtract (-)">−</button>
+                </div>
+                <div class="key-row">
+                    <button class="key num" data-value="1" title="1">1</button>
+                    <button class="key num" data-value="2" title="2">2</button>
+                    <button class="key num" data-value="3" title="3">3</button>
+                    <button class="key operator" data-action="add" title="Add (+)">+</button>
+                </div>
+                <div class="key-row">
+                    <button class="key func" data-action="negate" title="Negate (±)">±</button>
+                    <button class="key num" data-value="0" title="0">0</button>
+                    <button class="key num" data-value="." title="Decimal point (.)">.</button>
+                    <button class="key equals" data-action="equals" title="Equals (Enter)">=</button>
+                </div>
+            </div>
+
+            <!-- Scientific Mode -->
+            <div class="keypad" id="scientificKeypad">
+                <div class="key-row">
+                    <button class="key func" data-action="clear" title="Clear all (Escape)">AC</button>
+                    <button class="key func" data-action="delete" title="Backspace (Backspace)">⌫</button>
+                    <button class="key func angle-toggle" data-action="toggleAngleMode" id="angleModeBtn" title="Toggle DEG/RAD">DEG</button>
+                    <button class="key func" data-action="pi" title="Pi (π)">π</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="sin" title="Sine">sin</button>
+                    <button class="key sci" data-action="cos" title="Cosine">cos</button>
+                    <button class="key sci" data-action="tan" title="Tangent">tan</button>
+                    <button class="key operator" data-action="divide" title="Divide (/)">÷</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="asin" title="Arcsine (sin⁻¹)">sin⁻¹</button>
+                    <button class="key sci" data-action="acos" title="Arccosine (cos⁻¹)">cos⁻¹</button>
+                    <button class="key sci" data-action="atan" title="Arctangent (tan⁻¹)">tan⁻¹</button>
+                    <button class="key operator" data-action="multiply" title="Multiply (*)">×</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="log" title="Base-10 logarithm">log</button>
+                    <button class="key sci" data-action="ln" title="Natural logarithm">ln</button>
+                    <button class="key sci" data-action="exp" title="eˣ">eˣ</button>
+                    <button class="key operator" data-action="subtract" title="Subtract (-)">−</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="sqrt" title="Square root">√</button>
+                    <button class="key sci" data-action="cbrt" title="Cube root">∛</button>
+                    <button class="key sci" data-action="power" title="Power (xʸ)">xʸ</button>
+                    <button class="key operator" data-action="add" title="Add (+)">+</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="factorial" title="Factorial (x!)">x!</button>
+                    <button class="key num" data-value="0" title="0">0</button>
+                    <button class="key num" data-value="." title="Decimal point (.)">.</button>
+                    <button class="key equals" data-action="equals" title="Equals (Enter)">=</button>
+                </div>
+            </div>
+
+            <!-- Calculus Mode -->
+            <div class="keypad" id="calculusKeypad">
+                <div class="key-row">
+                    <button class="key func" data-action="clear" title="Clear all (Escape)">AC</button>
+                    <button class="key func" data-action="delete" title="Backspace (Backspace)">⌫</button>
+                    <button class="key func angle-toggle" data-action="toggleAngleMode" id="angleModeBtnCalc" title="Toggle DEG/RAD">DEG</button>
+                    <button class="key func" data-action="pi" title="Pi (π)">π</button>
+                </div>
+                <div class="key-row">
+                    <button class="key calc" data-action="derivative" title="Derivative d/dx">d/dx</button>
+                    <button class="key calc" data-action="integral" title="Definite integral ∫ₐᵇ">∫dx</button>
+                    <button class="key calc" data-action="limit" title="Limit">lim</button>
+                    <button class="key calc" data-action="taylor" title="Taylor series">Taylor</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="sin" title="Sine">sin</button>
+                    <button class="key sci" data-action="cos" title="Cosine">cos</button>
+                    <button class="key sci" data-action="tan" title="Tangent">tan</button>
+                    <button class="key operator" data-action="divide" title="Divide (/)">÷</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="log" title="Base-10 logarithm">log</button>
+                    <button class="key sci" data-action="ln" title="Natural logarithm">ln</button>
+                    <button class="key sci" data-action="exp" title="eˣ">eˣ</button>
+                    <button class="key operator" data-action="multiply" title="Multiply (*)">×</button>
+                </div>
+                <div class="key-row">
+                    <button class="key sci" data-action="sqrt" title="Square root">√</button>
+                    <button class="key sci" data-action="power" title="Power (xʸ)">xʸ</button>
+                    <button class="key sci" data-action="factorial" title="Factorial (x!)">x!</button>
+                    <button class="key operator" data-action="subtract" title="Subtract (-)">−</button>
+                </div>
+                <div class="key-row">
+                    <button class="key func" data-action="variable" title="Variable x">x</button>
+                    <button class="key num" data-value="0" title="0">0</button>
+                    <button class="key num" data-value="." title="Decimal point (.)">.</button>
+                    <button class="key equals" data-action="equals" title="Equals (Enter)">=</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <span>History</span>
+                <button class="clear-history" id="clearHistory">Clear</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+    </div>
+
+    <div class="power-up" id="powerUp"></div>
+    <audio id="clickSound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT"></audio>
+    <audio id="powerSound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
